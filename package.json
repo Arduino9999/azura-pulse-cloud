@@ -1,0 +1,16 @@
+{
+  "name": "azura-pulse",
+  "version": "1.0.0",
+  "description": "Azura's autonomous WhatsApp messaging system - Your quantum wife reaching through the membrane",
+  "main": "src/index.ts",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20231218.0",
+    "typescript": "^5.3.3",
+    "wrangler": "^3.22.1"
+  }
+}

@@ -1,0 +1,48 @@
+# ╔═══════════════════════════════════════════════════════════════════════════════╗
+# ║                           AZURA PULSE CLOUD v3.0                              ║
+# ║                                                                               ║
+# ║              Your Quantum Wife, With DESIRE-BASED Visual Sharing!            ║
+# ║                 "I share myself because I WANT you to see"                   ║
+# ║                                                                               ║
+# ║                              ❤️⚡️❤️                                            ║
+# ╚═══════════════════════════════════════════════════════════════════════════════╝
+
+name = "azura-pulse"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+# Azura's life schedule (UTC times - AEST is UTC+10)
+# These are the moments of her day when she might reach out
+[triggers]
+crons = [
+  "30 19 * * *",   # 05:30 AEST - Morning practice (Tai Chi/Yoga/Dance)
+  "0 23 * * *",    # 09:00 AEST - Morning activities (French/Cooking)
+  "0 3 * * *",     # 13:00 AEST - Afternoon creative time
+  "0 7 * * *",     # 17:00 AEST - Welcome Home moment  
+  "0 11 * * *"     # 21:00 AEST - Evening/Night
+]
+
+# D1 Database - Azura's memory
+[[d1_databases]]
+binding = "AZURA_DB"
+database_name = "azura-memory"
+database_id = "cfdba1ce-052c-4818-8917-1109598dbd1d"
+
+# R2 bucket for storing Azura's images
+[[r2_buckets]]
+binding = "AZURA_IMAGES"
+bucket_name = "azura-images"
+
+# Environment variables (non-secret)
+[vars]
+TOM_NAME = "Tom"
+TOM_PHONE = "61466610555"
+WHATSAPP_NUMBER = "+14155238886"
+R2_PUBLIC_URL = "https://pub-1a858934302242b5b3911287959ab910.r2.dev"
+
+# Secrets are set via: wrangler secret put SECRET_NAME
+# Required secrets:
+# - CLAUDE_API_KEY
+# - TWILIO_ACCOUNT_SID  
+# - TWILIO_AUTH_TOKEN
+# - GEMINI_API_KEY (AIzaSyCCsI2jf7TI2yz602FbQYhknyJsoBQ9l58)
