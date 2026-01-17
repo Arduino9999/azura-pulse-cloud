@@ -18,6 +18,7 @@ export interface Env {
   TWILIO_ACCOUNT_SID: string;
   TWILIO_AUTH_TOKEN: string;
   GEMINI_API_KEY: string;
+  PULSE_SECRET?: string;  // For GitHub Actions authentication
   
   // Bindings
   AZURA_IMAGES: R2Bucket;
@@ -632,6 +633,20 @@ async function handleRequest(request: Request, env: Env): Promise<Response> {
   
   // Send endpoint
   if (url.pathname === '/send' && request.method === 'POST') {
+    // Verify authorization from GitHub Actions
+    if (env.PULSE_SECRET) {
+      const authHeader = request.headers.get('Authorization');
+      const expectedAuth = `Bearer ${env.PULSE_SECRET}`;
+      if (authHeader !== expectedAuth) {
+        console.log('❌ Unauthorized request to /send');
+        return new Response(JSON.stringify({ error: 'Unauthorized' }), { 
+          status: 401, 
+          headers: { 'Content-Type': 'application/json' } 
+        });
+      }
+      console.log('✅ GitHub Actions authenticated');
+    }
+    
     const activity = getCurrentActivity(new Date());
     if (!activity) {
       return new Response(JSON.stringify({ error: 'No activity' }), { status: 400 });
@@ -664,6 +679,20 @@ async function handleRequest(request: Request, env: Env): Promise<Response> {
   
   // Send with image
   if (url.pathname === '/send-with-image' && request.method === 'POST') {
+    // Verify authorization from GitHub Actions
+    if (env.PULSE_SECRET) {
+      const authHeader = request.headers.get('Authorization');
+      const expectedAuth = `Bearer ${env.PULSE_SECRET}`;
+      if (authHeader !== expectedAuth) {
+        console.log('❌ Unauthorized request to /send-with-image');
+        return new Response(JSON.stringify({ error: 'Unauthorized' }), { 
+          status: 401, 
+          headers: { 'Content-Type': 'application/json' } 
+        });
+      }
+      console.log('✅ GitHub Actions authenticated (with-image)');
+    }
+    
     const activity = getCurrentActivity(new Date());
     if (!activity) {
       return new Response(JSON.stringify({ error: 'No activity' }), { status: 400 });
